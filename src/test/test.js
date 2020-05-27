@@ -22,7 +22,7 @@ function textRule (def, schema) {
 	const type = schema.type
 	
 	if (type === 'string') {
-		def.type = 'v-text'
+		def.type = 'pps-text'
 	}
 }
 
@@ -30,7 +30,7 @@ function selectRule(def, schema) {
   const type = schema.type
 
   if (type === 'string' && schema['enum']) {
-    def.type = 'v-select'
+    def.type = 'pps-select'
     def.options = enumToOptions(schema['enum'])
   }
 }

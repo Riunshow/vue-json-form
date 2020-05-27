@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import FormGroup from './form-group.vue'
+import FormItem from './form-item.vue'
 
-Vue.component('form-group', FormGroup)
+Vue.component('form-item', FormItem)
