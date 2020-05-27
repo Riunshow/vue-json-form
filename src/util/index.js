@@ -30,6 +30,8 @@ const enumToOptions = function (enumArray) {
   const options = []
 
   _.each(enumArray, item => {
+    // todo
+    // 这里需要结合 formSchema.form[xxx].titleMap 去找到 value 对应的 label
     options.push({
       label: item,
       value: item
