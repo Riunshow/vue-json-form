@@ -1,0 +1,33 @@
+{
+  "name": "vue-form-create",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Riunshow/vue-form-create.git"
+  },
+  "author": "Rainbower",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Riunshow/vue-form-create/issues"
+  },
+  "homepage": "https://github.com/Riunshow/vue-form-create#readme",
+  "dependencies": {
+    "ajv": "^6.12.2",
+    "ajv-errors": "^1.0.1",
+    "extend": "^3.0.2",
+    "lodash": "^4.17.15",
+    "objectpath": "^2.0.0",
+    "vue": "^2.6.10"
+  },
+  "peerDependencies": {
+    "vue": "^2.5.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
