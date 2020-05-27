@@ -1,94 +1,159 @@
 const _ = require('lodash')
-const objectpath = require('objectpath')
 
 const rule = {
-	boolean: ['checkbox'],
-	object: ['fieldset'],
-	array: ['checkboxes', 'array'],
-	number: ['number'],
-	integer: ['number'],
-	string: ['date', 'image', 'select', 'text']
+	string: ['select', 'text']
+}
+
+function defaultRule (key, schema, options) {
+	const def = {
+		key,
+		...options,
+		title: schema.title || key || '',
+		required: options.required ? options.required : false
+	}
+
+	if (schema.description) {
+		def.description = schema.description
+	}
+	return def
+}
+
+function textRule (def, schema) {
+	const type = schema.type
+	
+	if (type === 'string') {
+		def.type = 'v-text'
+	}
+}
+
+function selectRule(def, schema) {
+  const type = schema.type
+
+  if (type === 'string' && schema['enum']) {
+    def.type = 'v-select'
+    def.options = enumToOptions(schema['enum'])
+  }
+}
+
+function enumToOptions(enumArray) {
+  const options = []
+
+  _.each(enumArray, item => {
+    options.push({
+      label: item,
+      value: item
+    })
+	})
+
+  return options
+}
+
+const rulesMap = {
+	text: textRule,
+	select: selectRule
 }
 
 
 class Generator {
 	constructor() {
-		this.rules = rule
+		this.rules = {}
+		this.init()
 	}
 
-	/**
-	 * 生成表单模型
-	 * @param {Object} schema 
-	 * @param {Array} definition 
-	 */
-	parse(schema, definition = []) {
-		if (!(schema && schema.properties)) {
-			throw new Error('schema no validate!')
-		}
+	init () {
+    const rules = {}
 
-		const options = {
-			path: [],
-			lookup: {}
-		}
-		const schemaForm = []
-
-		_.each(schema.properties, (val, key) => {
-			this._parse(key, val, schemaForm, {
-				path: [key],
-				lookup: options.lookup
+    _.each(rule, (list, type) => {
+      rules[type] = list.map(item => {				
+				return rulesMap[item]
 			})
 		})
-
-		definition = schemaForm
-
-		return definition
-	}
-
-	/**
-	 * 生成表单模型
-	 * @param {Object} schema 
-	 * @param {Array} definition 
-	 */
-	_parse(name, schema, definition, options) {
-		const rules = this.rules[schema.type]
-		let def
-
-		if (rules) {
-			def = this.defaultRule(name, schema, options)
-		}
-
-		definition.push(def)
-	}
-
-	defaultRule(name, schema, options) {
-		const def = {
-			key: options.path
-		}
-
-		def.title = typeof schema.title !== 'undefined' ? schema.title : name
-
-		if (schema.description) {
-			def.description = schema.description
-		}
-
-		if (options.required) {
-			def.required = true
-		}
-
-		if (options.col) {
-			def.col = options.col
-		}
-
-		// def.schema = schema
-		console.log(options.path, options.path,objectpath.stringify(options.path));
 		
-		options.lookup[objectpath.stringify(options.path)] = def
-
-		return def
+    this.rules = rules
 	}
+
+  parse (formSchema) {
+		const definition = []
+
+    if (!(formSchema && formSchema.schema)) {
+      throw new Error('formSchema no validate!')
+    }
+
+    _.each(formSchema.schema, (schemaItem, key) => {			
+      const required = schemaItem.required ? schemaItem.required : _.indexOf(formSchema.required, key) !== -1
+console.log(formSchema.value[key]);
+
+      this._parse(key, schemaItem, definition, {
+				key,
+				value: formSchema.value[key] || '',
+        required
+      })
+		})
+
+    return definition
+	}
+	
+  _parse (key, schemaItem, definition, options) {
+		const rules = this.rules[schemaItem.type]
+
+    let def
+
+    if (rules) {
+			def = defaultRule(key, schemaItem, options)
+			
+      for (let i = 0, len = rules.length; i < len; i++) {
+        rules[i].call(this, def, schemaItem, options)
+
+        if (def.type) {
+          break
+        }
+      }
+    }
+
+    definition.push(def)
+  }
 }
 
 let test = new Generator()
+
+const jsonFormSchema = {
+	schema: {
+		name: {
+			title: 'Default Name',
+			description: 'Nickname allowed',
+			type: 'string'
+		},
+		gender: {
+			title: 'Gender',
+			description: 'Your gender',
+			type: 'string',
+			enum: [
+				'male',
+				'female',
+				'alien'
+			]
+		}
+	},
+	form: [
+	'name',
+	{
+		key: 'gender',
+		titleMap: {
+			male: 'Dude',
+			female: 'Dudette',
+			alien: 'I m from outer space!'
+		}
+	}],
+	value: {
+		name: 'default name',
+		gender: 'female'
+	}
+}
+
+
+console.log(test.parse(jsonFormSchema));
+
+// ----------------------------------------------------
 
 const schema = {
 	title: 'basic',
@@ -112,5 +177,3 @@ const schema = {
 	},
 	required: ['name', 'phone', 'single']
 }
-
-test.parse(schema)

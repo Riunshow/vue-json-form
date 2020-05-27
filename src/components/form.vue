@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 import Horizontal from './layout/horizontal.vue'
 
 // 生成 schema 相关方法
@@ -21,7 +23,11 @@ export default {
   },
   props: {
 		key: String,
-		validator: Function,
+    validator: Function,
+    model: {
+      type: Object,
+      default: () => {}
+    },
     theme: {
       type: String,
       default: 'bootstrap'
@@ -38,7 +44,7 @@ export default {
 			generator: new GeneratorSchema()
 		}
 	},
-  created: function () {
+  created () {
     const schema = {
       'schema': {
         'inputField': {
@@ -57,16 +63,14 @@ export default {
 			}
     }
 
-    this.init(schema)
+    const { model } = this
+
+    this.init({ schema, model })
   },
   methods: {
-    init (schema) {
-			this.schema = this.generator.parse(schema)
-			this.ajv = new Ajv()
-			this.validator = null
-			this.messages = {}
-			this.valid = true
-    }
+    ...mapMutations([
+      'init'
+    ])
   }
 }
 </script>
