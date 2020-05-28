@@ -43,7 +43,7 @@ export const validate = (state, key) => {
 
   const valid = state.validator(state.model)
   let errors
-  key = key ? key.join('.') : null
+  key = key ? key : null
 
   if (!valid) {
     localize(state.validator.errors, state.schema)

@@ -1,5 +1,5 @@
 <template>
-  <div class='vue-form'>
+  <div class='v-json-form'>
     <component :is='theme'>
       <slot></slot>
     </component>
@@ -9,7 +9,7 @@
 <script>
 import { mapMutations } from 'vuex'
 
-import ElementUiLayout from './ui/layout'
+import Layout from './ui/layout'
 
 // 生成 schema 相关方法
 import GeneratorSchema from '../core/schema'
@@ -19,51 +19,36 @@ import GeneratorSchema from '../core/schema'
 
 export default {
   components: {
-    'bootstrap': ElementUiLayout
+    'defaultLayout': Layout
   },
   props: {
-		key: String,
-    validator: Function,
+    // key: String,
+    // validator: Function,
+    formSchema: {
+      type: Object,
+      default: () => { }
+    },
     model: {
       type: Object,
-      default: () => {}
+      default: () => { }
     },
     theme: {
       type: String,
-      default: 'bootstrap'
+      default: 'defaultLayout'
     }
-	},
+  },
   data () {
-		return {
-			schema: {},
-			valid: true,
-			messages: {},  // 校验信息
-			ajv: null,
-			generator: new GeneratorSchema()
-		}
-	},
-  created () {
-    const schema = {
-      'schema': {
-        'inputField': {
-          'type': 'string',
-          'title': '受保人姓名',
-        }
-      },
-      'form': [
-        {
-          'key': 'inputField',
-          'type': 'input'
-        }
-      ],
-      'value': {
-				'inputField': 'xxx'
-			}
+    return {
+      valid: true,
+      messages: {},  // 校验信息
+      ajv: null,
+      generator: new GeneratorSchema()
     }
-
+  },
+  created () {
     const { model } = this
 
-    this.init({ schema, model })
+    this.init({ formSchema: this.formSchema, model })
   },
   methods: {
     ...mapMutations([

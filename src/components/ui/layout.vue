@@ -3,7 +3,7 @@
     <form-item
       v-for="(item, index) in formDefinition"
       :definition="item"
-      :key="`${group.key ? group.key.join('.') : ''}-${index}`" 
+      :key="`${item.key}-${index}`" 
     />
     <slot />
   </form>

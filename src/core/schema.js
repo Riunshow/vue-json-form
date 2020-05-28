@@ -1,21 +1,22 @@
 import _ from 'lodash'
 
-import selectRule from './rules/select'
+import defaultRule from './rules/default'
 import textRule from './rules/text'
+import checkboxesRule from './rules/checkboxes'
 
 const rulesMap = {
-	select: selectRule,
+	checkboxes: checkboxesRule,
 	text: textRule
 }
 
 const rule = {
 	// boolean: ['checkbox'],
 	// object: ['fieldset'],
-	// array: ['checkboxes'],
+	array: ['checkboxes'],
 	// number: ['number'],
 	// integer: ['number'],
 	// string: ['date', 'image', 'select', 'text']
-	string: ['select', 'text']
+	string: ['text']
 }
 
 class FormSchema {
@@ -62,10 +63,10 @@ class FormSchema {
 	_parse(key, schemaItem, definition, options) {
 		const rules = this.rules[schemaItem.type]
 
-		let def = {}
+		let def
 
 		if (rules) {
-			def = this.defaultRule(key, schemaItem, options)
+			def = defaultRule(key, schemaItem, options)
 
 			for (let i = 0, len = rules.length; i < len; i++) {
 				rules[i].call(this, def, schemaItem, options)

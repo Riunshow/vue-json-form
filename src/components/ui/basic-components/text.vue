@@ -2,17 +2,17 @@
   <input type="text" class="form-control spark-input" v-model.lazy="value"
     :placeholder="definition.placeholder"
     :disabled="definition.disabled"
-    :maxlength="schema.maxlength"
-    :minLength="schema.minLength"
+    :maxlength="definition.maxlength"
+    :minLength="definition.minLength"
     :name="name"
-    :pattern="schema.pattern"
+    :pattern="definition.pattern"
     :readonly="definition.readonly"
     :required="definition.required"
   />
 </template>
 
 <script>
-import basicMixin from '../../../mixin/basic'
+import basicMixin from '../../mixin/basic'
 
 export default {
   mixins: [basicMixin]

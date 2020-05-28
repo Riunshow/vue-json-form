@@ -6,10 +6,6 @@ export default {
     definition: {
       type: Object,
       required: true
-    },
-    key: {
-      type: Array,
-      required: true
     }
   },
   computed: {
@@ -18,18 +14,18 @@ export default {
     }),
     value: {
       get () {
-        return _.get(this.model, this.key)
+        return _.get(this.model, this.definition.key)
       },
       set (val) {
         if (val === '') {
           this.removeValue(this.key)
         } else {
-          this.setValue({ key: this.key, value: val})
+          this.setValue({ key: this.definition.key, value: val})
         }
       }
     },
     name () {
-      return this.key.join('.')
+      return this.definition.key
     },
     type () {
       return this.definition.type

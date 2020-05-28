@@ -1,4 +1,4 @@
-defaultRule (key, schema, options) {
+export default function (key, schema, options) {
 	const def = {
 		key,
 		...options,
