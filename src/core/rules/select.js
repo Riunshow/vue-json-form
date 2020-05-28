@@ -1,4 +1,4 @@
-import { enumToOptions } from '../../util/util'
+import { enumToOptions } from '../../util'
 
 export default function (def, schema) {
   const type = schema.type

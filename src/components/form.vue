@@ -9,17 +9,17 @@
 <script>
 import { mapMutations } from 'vuex'
 
-import Horizontal from './layout/horizontal.vue'
+import ElementUiLayout from './ui/layout'
 
 // 生成 schema 相关方法
 import GeneratorSchema from '../core/schema'
 
 // jsonform validate
-import Ajv from '../validate'
+// import Ajv from '../validate'
 
 export default {
   components: {
-    'bootstrap': Horizontal
+    'bootstrap': ElementUiLayout
   },
   props: {
 		key: String,
@@ -36,11 +36,9 @@ export default {
   data () {
 		return {
 			schema: {},
-			theme: 'bootstrap',
 			valid: true,
 			messages: {},  // 校验信息
 			ajv: null,
-			validator: null,
 			generator: new GeneratorSchema()
 		}
 	},

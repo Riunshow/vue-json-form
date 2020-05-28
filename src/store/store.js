@@ -1,6 +1,6 @@
 import * as mutations from './mutations'
 import * as getters from './getters'
-import Generator from '../core/schema'
+import FormSchema from '../core/schema'
 
 const state = {
   formSchema: {
@@ -25,7 +25,7 @@ const state = {
   messages: {},  // 校验信息
   ajv: null,
   validator: null,
-  generator: new Generator()
+  generator: new FormSchema()
 }
 
 export default {

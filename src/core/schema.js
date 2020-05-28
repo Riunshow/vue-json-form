@@ -91,3 +91,5 @@ class FormSchema {
 	}
 
 }
+
+export default FormSchema
