@@ -13,8 +13,7 @@ const state = {
     ajv: null,
     validator: null,
     generator: new FormSchema()
-  },
-  formDefinition: {}
+  }
 }
 
 export default {

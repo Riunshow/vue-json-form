@@ -6,7 +6,7 @@
         {{ definition.title }}:
       </label>
       <div class="col-sm-10">
-        <component :is="definition.type" :formId="formId" :definition="definition" :key="definition.key"></component>
+        <component :is="definition.type" :formId="formId" :definition="definition" :key="definition.key" @getFormData="getFormData"></component>
       </div>
       <div class="col-sm-offset-2 col-sm-10 form-tips">
         <span v-show="valid.status">{{description}}</span>
@@ -15,7 +15,7 @@
     </template>
     <template v-else>
       <div class="col-sm-12">
-        <component :is="definition.type" :formId="formId" :definition="definition" :key="definition.key"></component>
+        <component :is="definition.type" :formId="formId" :definition="definition" :key="definition.key" @getFormData="getFormData"></component>
       </div>
       <div class="col-sm-12 form-tips">
         <span v-show="valid.status">{{ description }}</span>
@@ -71,6 +71,9 @@ export default {
     }
   },
   methods: {
+    getFormData (val) {
+      this.$emit('getFormData', val)
+    }
   }
 }
 </script>

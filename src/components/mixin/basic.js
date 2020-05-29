@@ -15,10 +15,14 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getModel'
+      'getModel',
+      'getFormDefinition'
     ]),
     model () {
       return this.getModel(this.formId)
+    },
+    formDefinition () {
+      return this.getFormDefinition(this.formId)
     },
     value: {
       get () {
@@ -30,6 +34,7 @@ export default {
         } else {
           this.setValue({ formId: this.formId, key: this.definition.key, value: val })
         }
+        this.$emit('getFormData', this.formDefinition.model)
       }
     },
     name () {

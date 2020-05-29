@@ -4,7 +4,8 @@
       v-for="(item, index) in formDefinition"
       :definition="item"
       :formId="formId"
-      :key="`${item.key}-${index}`" 
+      :key="`${item.key}-${index}`"
+      @getFormData="getFormData"
     />
     <slot />
   </form>
@@ -33,9 +34,10 @@ export default {
       return this.getDefinition(this.formId)
     }
   },
-  created () {
-
-    
+  methods: {
+    getFormData (val) {
+      this.$emit('getFormData', val)
+    }
   }
 }
 </script>

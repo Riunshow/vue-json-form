@@ -1,6 +1,6 @@
 <template>
   <div class='v-json-form'>
-    <component :is='theme' :formId="formId">
+    <component :is='theme' :formId="formId" @getFormData="getFormData">
       <slot></slot>
     </component>
   </div>
@@ -53,7 +53,10 @@ export default {
   methods: {
     ...mapMutations([
       'init'
-    ])
+    ]),
+    getFormData (val) {
+      this.$emit('input', val)
+    }
   }
 }
 </script>

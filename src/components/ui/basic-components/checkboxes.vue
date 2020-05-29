@@ -31,6 +31,7 @@ export default {
         } else {
           this.setValue({ formId: this.formId, key: this.definition.key, value: val})
         }
+        this.$emit('getFormData', this.formDefinition.model)
       }
     }
   }

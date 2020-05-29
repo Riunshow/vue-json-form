@@ -9,3 +9,7 @@ export const getMessages = (state)  => (formId) => {
 export const getModel = (state)  => (formId) => {
 	return state[`formDefinition${formId}`].model
 }
+
+export const getFormDefinition = (state)  => (formId) => {
+	return state[`formDefinition${formId}`]
+}

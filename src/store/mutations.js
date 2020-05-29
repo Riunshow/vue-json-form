@@ -89,9 +89,6 @@ export const setValue = (state, { formId, key, value }) => {
     throw new Error('key & value & formId is required!')
   }
 
-  console.log(formId, state[`formDefinition${formId}`])
-  
-
   const model = { ...state[`formDefinition${formId}`].model }
 
   _.set(model, key, value)
