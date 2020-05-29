@@ -1,6 +1,6 @@
 <template>
   <div class='v-json-form'>
-    <component :is='theme'>
+    <component :is='theme' :formId="formId">
       <slot></slot>
     </component>
   </div>
@@ -22,7 +22,11 @@ export default {
     'defaultLayout': Layout
   },
   props: {
-    // key: String,
+    formId: {
+      type: [String, Number],
+      default: 0,
+      required: true
+    },
     // validator: Function,
     formSchema: {
       type: Object,
@@ -39,16 +43,12 @@ export default {
   },
   data () {
     return {
-      valid: true,
-      messages: {},  // 校验信息
-      ajv: null,
-      generator: new GeneratorSchema()
     }
   },
   created () {
-    const { model } = this
+    const { model, formSchema, formId } = this
 
-    this.init({ formSchema: this.formSchema, model })
+    this.init({ formId, formSchema, model })
   },
   methods: {
     ...mapMutations([

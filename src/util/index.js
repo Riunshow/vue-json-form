@@ -1,21 +1,6 @@
 import _ from 'lodash'
 
-// 通过 字段key 找到当前 schema
-const getSchemaByKey = function (schema = {}, key = '') {
-	if (!schema) {
-		throw new Error('schema is required!')
-	}
-
-	if (!key) {
-		return schema
-	}
-
-	const schemaPath = [key]
-
-	return _.get(schema, schemaPath)
-}
-
-const parseErrors = function (errors) {
+const parseErrors = (errors) => {
   const map = {}
 
   errors.forEach(err => {
@@ -26,7 +11,7 @@ const parseErrors = function (errors) {
 }
 
 // select 下拉选项转换
-const enumToOptions = function (enumArray) {
+const enumToOptions = (enumArray) => {
   const options = []
 
   _.each(enumArray, item => {
@@ -42,7 +27,6 @@ const enumToOptions = function (enumArray) {
 }
 
 export {
-	getSchemaByKey,
 	parseErrors,
 	enumToOptions
 }

@@ -4,17 +4,27 @@ import { parseErrors } from '../util'
 import Ajv from '../validate'
 import localize from '../validate/localize'
 
-export const init = (state, { formSchema, model = {} }) => {
-  const generator = state.generator
+export const init = (state, { formId, formSchema, model = {} }) => {
+  if (state[`formDefinition${formId}`]) {
+    state[`formDefinition${formId}`] = {}
+  }
 
-  state.formSchema = formSchema
-  state.validator = null
-  state.formDefinition = generator.parse(formSchema)
+  const form = {
+    ...state.basicDefinition,
+    formId,
+    formSchema,
+    ajv: new Ajv()
+  }
+
+  const generator = form.generator
+
+  form.formDefinition = generator.parse(formSchema)
+
   const data = generator.getDefaultModal(formSchema)
-  state.model = extend(true, {}, data, model)
-  state.ajv = new Ajv()
-  state.messages = {}
-  state.valid = true
+
+  form.model = extend(true, {}, data, model)
+
+  state[`formDefinition${formId}`] = { ...form }
 }
 
 // 设置表单元素校验结果
@@ -37,65 +47,68 @@ export const setMessages = (state, messages) => {
 
 // 校验整个表单
 export const validate = (state, key) => {
-  if (!state.validator) {
-    state.validator = state.ajv.compile(state.formSchema)
-  }
+  // if (!state.validator) {
+  //   state.validator = state.ajv.compile(state.formSchema)
+  // }
 
-  const valid = state.validator(state.model)
-  let errors
-  key = key ? key : null
+  // const valid = state.validator(state.model)
+  // let errors
+  // key = key ? key : null
 
-  if (!valid) {
-    localize(state.validator.errors, state.schema)
-    let allErrors = parseErrors(state.validator.errors)
+  // if (!valid) {
+  //   localize(state.validator.errors, state.schema)
+  //   let allErrors = parseErrors(state.validator.errors)
 
-    if (key) {
-      if (allErrors[key]) {
-        errors = {}
-        errors[key] = allErrors[key]
-      }
-    } else {
-      errors = allErrors
-    }
+  //   if (key) {
+  //     if (allErrors[key]) {
+  //       errors = {}
+  //       errors[key] = allErrors[key]
+  //     }
+  //   } else {
+  //     errors = allErrors
+  //   }
 
-    if (errors) {
-      setMessages(state, errors)
-    }
-  }
+  //   if (errors) {
+  //     setMessages(state, errors)
+  //   }
+  // }
 
-  if (!errors && key) {
-    errors = {}
-    errors[key] = true
-    setMessages(state, errors)
-  }
+  // if (!errors && key) {
+  //   errors = {}
+  //   errors[key] = true
+  //   setMessages(state, errors)
+  // }
 
-  state.model = { ...state.model }
-  state.valid = valid
+  // state.model = { ...state.model }
+  // state.valid = valid
 }
 
 // 设置指定属性值，表单元素值修改时触发
-export const setValue = (state, { key, value }) => {
-  if (!key || typeof value === 'undefined') {
-    throw new Error('key and value is required!')
+export const setValue = (state, { formId, key, value }) => {
+  if (!key || typeof value === 'undefined' || !formId) {
+    throw new Error('key & value & formId is required!')
   }
 
-  const model = { ...state.model }
+  console.log(formId, state[`formDefinition${formId}`])
+  
+
+  const model = { ...state[`formDefinition${formId}`].model }
 
   _.set(model, key, value)
 
-  state.model = { ...model }
+  state[`formDefinition${formId}`].model = { ...model }
 
   validate(state, key)
 }
 
 // 删除指定属性，表单元素值为空或数组删除时触发
-export const removeValue = (state, key) => {
+export const removeValue = (state, { formId, key}) => {
 
-  const model = { ...state.model }
+  const model = { ...state[`formDefinition${formId}`].model }
 
   _.unset(model, key)
 
-  state.model = { ...model }
+  state[`formDefinition${formId}`].model = { ...model }
 
   validate(state, key)
 }

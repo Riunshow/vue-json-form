@@ -1,26 +1,34 @@
 import _ from 'lodash'
-import { mapState, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: {
+    formId: {
+      type: [String, Number],
+      default: 0,
+      required: true
+    },
     definition: {
       type: Object,
       required: true
     }
   },
   computed: {
-    ...mapState({
-      model: state => state.model
-    }),
+    ...mapGetters([
+      'getModel'
+    ]),
+    model () {
+      return this.getModel(this.formId)
+    },
     value: {
       get () {
         return _.get(this.model, this.definition.key)
       },
       set (val) {
         if (val === '') {
-          this.removeValue(this.key)
+          this.removeValue({ formId: this.formId, key: this.key })
         } else {
-          this.setValue({ key: this.definition.key, value: val})
+          this.setValue({ formId: this.formId, key: this.definition.key, value: val })
         }
       }
     },

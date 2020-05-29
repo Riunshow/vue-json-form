@@ -3,6 +3,7 @@
     <form-item
       v-for="(item, index) in formDefinition"
       :definition="item"
+      :formId="formId"
       :key="`${item.key}-${index}`" 
     />
     <slot />
@@ -10,15 +11,31 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import FormItem from './form-item'
 
 export default {
   components: {
     FormItem
   },
-  computed: mapState({
-    formDefinition: state => state.formDefinition
-  })
+  props: {
+    formId: {
+      type: [String, Number],
+      default: 0,
+      required: true
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'getDefinition'
+    ]),
+    formDefinition () {
+      return this.getDefinition(this.formId)
+    }
+  },
+  created () {
+
+    
+  }
 }
 </script>

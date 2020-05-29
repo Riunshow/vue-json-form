@@ -29,7 +29,7 @@ export default {
         if (val === '') {
           this.removeValue(this.definition.key)
         } else {
-          this.setValue({ key: this.definition.key, value: val})
+          this.setValue({ formId: this.formId, key: this.definition.key, value: val})
         }
       }
     }

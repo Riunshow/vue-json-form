@@ -1,5 +1,11 @@
-import { getSchemaByKey } from '../util'
+export const getDefinition = (state) => (formId) => {
+	return state[`formDefinition${formId}`].formDefinition
+}
 
-export const getSchema = (state) => (key) => {
-  return getSchemaByKey(state.formSchema.schema, key)
+export const getMessages = (state)  => (formId) => {
+	return state[`formDefinition${formId}`].messages
+}
+
+export const getModel = (state)  => (formId) => {
+	return state[`formDefinition${formId}`].model
 }
