@@ -20,7 +20,7 @@ export const init = (state, { formId, formSchema, model = {} }) => {
 
   form.formDefinition = generator.parse(formSchema)
 
-  const data = generator.getDefaultModal(formSchema)
+  const data = generator.getDefaultModel(formSchema)
 
   form.model = extend(true, {}, data, model)
 
@@ -83,6 +83,11 @@ export const validate = (state, key) => {
   // state.valid = valid
 }
 
+export const setModel = (state, params) => {
+  const { formId, model } = params
+	return state[`formDefinition${formId}`].model = _.cloneDeep(model)
+}
+
 // 设置指定属性值，表单元素值修改时触发
 export const setValue = (state, { formId, key, value }) => {
   if (!key || typeof value === 'undefined' || !formId) {
@@ -108,8 +113,4 @@ export const removeValue = (state, { formId, key}) => {
   state[`formDefinition${formId}`].model = { ...model }
 
   validate(state, key)
-}
-
-export const setModel = (state, model) => {
-  state.model = _.cloneDeep(model)
 }

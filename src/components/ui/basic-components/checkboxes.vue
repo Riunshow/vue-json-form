@@ -18,22 +18,6 @@ import basicMixin from '../../mixin/basic'
 import _ from 'lodash'
 
 export default {
-  mixins: [basicMixin],
-  computed: {
-    value: {
-      get () {
-        return _.get(this.model, this.definition.key) || []
-      },
-      set (val) {
-        // 无值
-        if (val === '') {
-          this.removeValue(this.definition.key)
-        } else {
-          this.setValue({ formId: this.formId, key: this.definition.key, value: val})
-        }
-        this.$emit('getFormData', this.formDefinition.model)
-      }
-    }
-  }
+  mixins: [basicMixin]
 }
 </script>

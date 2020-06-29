@@ -81,7 +81,7 @@ class FormSchema {
 	}
 
 	// 从 form schema 中获取 默认值 (value 字段)
-	getDefaultModal(formSchema) {
+	getDefaultModel(formSchema) {
 		const model = {}
 
 		_.each(formSchema.schema, (val, key) => {

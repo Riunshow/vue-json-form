@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: {
@@ -13,20 +13,37 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      model: {}
+    }
+  },
+  watch: {
+    '$store.state': {
+      handler (val) {
+        this.model = this.getModel(this.formId)
+      },
+      deep: true
+    }
+  },
   computed: {
     ...mapGetters([
       'getModel',
       'getFormDefinition'
     ]),
-    model () {
-      return this.getModel(this.formId)
-    },
+    // model () {
+    //   return this.getModel(this.formId)
+    // },
     formDefinition () {
       return this.getFormDefinition(this.formId)
     },
     value: {
       get () {
-        return _.get(this.model, this.definition.key)
+        if (this.definition.type === 'checkboxes') {
+          return _.get(this.model, this.definition.key) || []
+        } else {
+          return _.get(this.model, this.definition.key)
+        }
       },
       set (val) {
         if (val === '') {
@@ -47,8 +64,12 @@ export default {
       return this.definition.required
     }
   },
+  created () {
+    this.model = this.getModel(this.formId)
+  },
   methods: {
     ...mapMutations([
+      'setModel',
       'setValue',
       'removeValue'
     ])
