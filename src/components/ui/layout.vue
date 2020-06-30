@@ -1,22 +1,18 @@
 <template>
-  <form class="form-horizontal" @submit.prevent>
-    <form-item
-      v-for="(item, index) in formDefinition"
-      :definition="item"
-      :formId="formId"
-      :key="`${item.key}-${index}`"
-      @getFormData="getFormData"
-    />
+  <md-field class="form-horizontal">
+    <form-item v-for="(item, index) in formDefinition" :definition="item" :formId="formId" :key="`${item.key}-${index}`" @getFormData="getFormData" />
     <slot />
-  </form>
+  </md-field>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { Field } from 'mand-mobile'
 import FormItem from './form-item'
 
 export default {
   components: {
+    [Field.name]: Field,
     FormItem
   },
   props: {

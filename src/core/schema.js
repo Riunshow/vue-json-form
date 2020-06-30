@@ -49,7 +49,18 @@ class FormSchema {
 		}
 
 		_.each(formSchema.schema, (schemaItem, key) => {
+			// 是否必填
 			const required = schemaItem.required ? schemaItem.required : _.indexOf(formSchema.required, key) !== -1
+
+			// 将 form 中的 titleMap <-> schema 中的 enum 做映射
+			if (schemaItem.enum) {
+				const needMerge = formSchema.form.filter(formItem => formItem.key === key)
+
+				if (needMerge.length > 1) {
+					throw new Error('表单出现重复key')
+				}
+				schemaItem.titleMap = needMerge[0].titleMap
+			}
 
 			this._parse(key, schemaItem, definition, {
 				key,

@@ -14,12 +14,10 @@ const parseErrors = (errors) => {
 const enumToOptions = (enumArray) => {
   const options = []
 
-  _.each(enumArray, item => {
-    // todo
-    // 这里需要结合 formSchema.form[xxx].titleMap 去找到 value 对应的 label
+  _.each(enumArray, (label, value) => {
     options.push({
-      label: item,
-      value: item
+      label,
+      value
     })
   })
 

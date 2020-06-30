@@ -1,6 +1,6 @@
 <template>
   <div class="form-item" :class="[definition.className, name, valid.status === true ? 'has-success' : valid.status === false ? 'has-error' : '']">
-    <template v-if="definition.title">
+    <!-- <template v-if="definition.title">
       <label class="col-sm-2 control-label">
         <span v-if="definition.required" class="required">*</span>
         {{ definition.title }}:
@@ -21,13 +21,20 @@
         <span v-show="valid.status">{{ description }}</span>
         <span v-show="!valid.status">{{ valid.message }}</span>
       </div>
-    </template>
+    </template> -->
+
+    <md-field-item solid :title="definition.title">
+      <component :is="definition.type" :formId="formId" :definition="definition" :key="definition.key" @getFormData="getFormData" />
+    </md-field-item>
   </div>
 </template>
 
 <script>
 import _ from 'lodash'
 import { mapGetters } from 'vuex'
+
+import { FieldItem } from 'mand-mobile'
+
 import vText from './basic-components/text'
 import Checkboxes from './basic-components/checkboxes'
 
@@ -40,9 +47,10 @@ const DEFAULT_VALID = {
 export default {
   components: {
     'v-text': vText,
-    'Checkboxes': Checkboxes
+    'Checkboxes': Checkboxes,
+    [FieldItem.name]: FieldItem,
   },
-	props: {
+  props: {
     formId: {
       type: [String, Number],
       default: 0,
@@ -52,7 +60,7 @@ export default {
       type: Object,
       required: true
     }
-	},
+  },
   computed: {
     ...mapGetters([
       'getMessages'

@@ -16,7 +16,7 @@ const plugin = {
 	}
 }
 
-// Auto-install
+// auto install
 let GlobalVue = null
 if (typeof window !== 'undefined') {
 	GlobalVue = window.Vue
