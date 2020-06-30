@@ -3,7 +3,7 @@
 
 ### todolist
 * 在前端工程内联调
-* 初始化的数据绑定到 v-model
+* ~~初始化的数据绑定到 v-model~~
 * 表单校验
 * schema from  value  三者做映射关系
 * 代码优化

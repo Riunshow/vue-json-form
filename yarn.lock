@@ -3606,6 +3606,11 @@ make-dir@^2.0.0:
     pify "^4.0.1"
     semver "^5.6.0"
 
+mand-mobile@^2.5.11:
+  version "2.5.11"
+  resolved "https://registry.yarnpkg.com/mand-mobile/-/mand-mobile-2.5.11.tgz#40fe7a54a1daac06d1f599fef744b08f409c901a"
+  integrity sha512-jBwlXFTSSz4N9FnujgTOVDsSFK4xFA5SSMe+r8/rGUy4PtwMu5yezz/kozo5j0X+GjEU3BmalZJ2hB2MxzKx+w==
+
 map-cache@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"

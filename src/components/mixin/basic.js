@@ -34,24 +34,37 @@ export default {
     // model () {
     //   return this.getModel(this.formId)
     // },
-    formDefinition () {
-      return this.getFormDefinition(this.formId)
-    },
+    // formDefinition () {
+    //   return this.getFormDefinition(this.formId)
+    // },
     value: {
       get () {
-        if (this.definition.type === 'checkboxes') {
-          return _.get(this.model, this.definition.key) || []
-        } else {
-          return _.get(this.model, this.definition.key)
+        switch (this.definition.type) {
+          case 'checkboxes':
+            return _.get(this.model, this.definition.key) || []
+          default:
+            return _.get(this.model, this.definition.key)
         }
       },
       set (val) {
-        if (val === '') {
-          this.removeValue({ formId: this.formId, key: this.key })
-        } else {
-          this.setValue({ formId: this.formId, key: this.definition.key, value: val })
+        switch (this.definition.type) {
+          case 'checkboxes':
+            if (val.length === 0) {
+              this.removeValue({ formId: this.formId, key: this.definition.key })
+            } else {
+              this.setValue({ formId: this.formId, key: this.definition.key, value: val })
+            }
+            break
+          default:
+            if (val === '') {
+              this.removeValue({ formId: this.formId, key: this.definition.key })
+            } else {
+              this.setValue({ formId: this.formId, key: this.definition.key, value: val })
+            }
+            break
         }
-        this.$emit('getFormData', this.formDefinition.model)
+
+        this.$emit('getFormData', this.getModel(this.formId))
       }
     },
     name () {

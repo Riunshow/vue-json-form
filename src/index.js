@@ -1,7 +1,7 @@
 import vueJsonForm from './components/form.vue'
 import basicMixin from './components/mixin/basic'
-
 import Store from './store/store'
+import 'mand-mobile/lib/mand-mobile.css'
 
 export const mixins = {
 	basicMixin
