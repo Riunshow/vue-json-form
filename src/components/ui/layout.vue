@@ -1,7 +1,6 @@
 <template>
   <md-field class="form-horizontal">
     <form-item v-for="(item, index) in formDefinition" :definition="item" :formId="formId" :key="`${item.key}-${index}`" @getFormData="getFormData" />
-    <slot />
   </md-field>
 </template>
 

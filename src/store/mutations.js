@@ -1,8 +1,5 @@
 import _ from 'lodash'
 import extend from 'extend'
-import { parseErrors } from '../util'
-import Ajv from '../validate'
-import localize from '../validate/localize'
 
 export const init = (state, { formId, formSchema, model = {} }) => {
   if (state[`formDefinition${formId}`]) {
@@ -12,8 +9,7 @@ export const init = (state, { formId, formSchema, model = {} }) => {
   const form = {
     ...state.basicDefinition,
     formId,
-    formSchema,
-    ajv: new Ajv()
+    formSchema
   }
 
   const generator = form.generator
@@ -27,60 +23,9 @@ export const init = (state, { formId, formSchema, model = {} }) => {
   state[`formDefinition${formId}`] = { ...form }
 }
 
-// 设置表单元素校验结果
-// status   true：正确，false：错误
-export const setMessages = (state, messages) => {
-  const map = {}
-
-  Object.keys(messages).forEach(key => {
-    const msg = messages[key]
-    map[key] = msg.message ? {
-      status: false,
-      message: messages[key].message
-    } : {
-      status: true
-    }
-  })
-
-  state.messages = Object.assign({}, state.messages, map)
-}
-
 // 校验整个表单
-export const validate = (state, key) => {
-  // if (!state.validator) {
-  //   state.validator = state.ajv.compile(state.formSchema)
-  // }
+export const validate = (formId, state, key) => {
 
-  // const valid = state.validator(state.model)
-  // let errors
-  // key = key ? key : null
-
-  // if (!valid) {
-  //   localize(state.validator.errors, state.schema)
-  //   let allErrors = parseErrors(state.validator.errors)
-
-  //   if (key) {
-  //     if (allErrors[key]) {
-  //       errors = {}
-  //       errors[key] = allErrors[key]
-  //     }
-  //   } else {
-  //     errors = allErrors
-  //   }
-
-  //   if (errors) {
-  //     setMessages(state, errors)
-  //   }
-  // }
-
-  // if (!errors && key) {
-  //   errors = {}
-  //   errors[key] = true
-  //   setMessages(state, errors)
-  // }
-
-  // state.model = { ...state.model }
-  // state.valid = valid
 }
 
 export const setModel = (state, params) => {
@@ -100,7 +45,7 @@ export const setValue = (state, { formId, key, value }) => {
 
   state[`formDefinition${formId}`].model = _.cloneDeep(model)
 
-  validate(state, key)
+  validate(formId, state, key)
 }
 
 // 删除指定属性，表单元素值为空或数组删除时触发
@@ -112,5 +57,5 @@ export const removeValue = (state, { formId, key}) => {
 
   state[`formDefinition${formId}`].model = _.cloneDeep(model)
 
-  validate(state, key)
+  validate(formId, state, key)
 }

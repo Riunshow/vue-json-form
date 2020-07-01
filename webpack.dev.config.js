@@ -12,8 +12,16 @@ baseConfig.devServer = {
   publicPath: '/dist/',
   hot: true
 }
+
 baseConfig.plugins.push(
   ...[
+    // 提高构建性能
+    new webpack.LoaderOptionsPlugin({
+      // test: /\.xxx$/, // may apply this only for some modules
+      options: {
+        noParse: /lodash/
+      }
+    }),
     new webpack.NamedModulesPlugin(),
     // 热替换插件
     new webpack.HotModuleReplacementPlugin(),

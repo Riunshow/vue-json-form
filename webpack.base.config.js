@@ -1,6 +1,9 @@
 const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+// const { dependencies } = require('./package.json')
+
+// let whiteListedModules = ['vue']
 
 module.exports = {
   // 修改打包入口
@@ -72,8 +75,15 @@ module.exports = {
     ]
   },
   resolve: {
+    // alias: {
+    //   'vue$': 'vue/dist/vue.esm.js'
+    // },
     extensions: ['*', '.js', '.vue', '.json']
   },
+  externals: ['vee-validate'],
+  // externals: [
+  //   ...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))
+  // ],
   performance: {
     hints: false
   },

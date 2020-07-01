@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: {
@@ -31,12 +31,6 @@ export default {
       'getModel',
       'getFormDefinition'
     ]),
-    // model () {
-    //   return this.getModel(this.formId)
-    // },
-    // formDefinition () {
-    //   return this.getFormDefinition(this.formId)
-    // },
     value: {
       get () {
         switch (this.definition.type) {
@@ -63,7 +57,7 @@ export default {
             }
             break
         }
-
+        this.$emit('input', this.value)
         this.$emit('getFormData', this.getModel(this.formId))
       }
     },

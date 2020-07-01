@@ -1,54 +1,34 @@
 <template>
-  <div class="form-item" :class="[definition.className, name, valid.status === true ? 'has-success' : valid.status === false ? 'has-error' : '']">
-    <!-- <template v-if="definition.title">
-      <label class="col-sm-2 control-label">
-        <span v-if="definition.required" class="required">*</span>
-        {{ definition.title }}:
-      </label>
-      <div class="col-sm-10">
-        <component :is="definition.type" :formId="formId" :definition="definition" :key="definition.key" @getFormData="getFormData"></component>
-      </div>
-      <div class="col-sm-offset-2 col-sm-10 form-tips">
-        <span v-show="valid.status">{{description}}</span>
-        <span v-show="!valid.status">{{valid.message}}</span>
-      </div>
-    </template>
-    <template v-else>
-      <div class="col-sm-12">
-        <component :is="definition.type" :formId="formId" :definition="definition" :key="definition.key" @getFormData="getFormData"></component>
-      </div>
-      <div class="col-sm-12 form-tips">
-        <span v-show="valid.status">{{ description }}</span>
-        <span v-show="!valid.status">{{ valid.message }}</span>
-      </div>
-    </template> -->
-
-    <md-field-item solid :title="definition.title">
-      <component :is="definition.type" :formId="formId" :definition="definition" :key="definition.key" @getFormData="getFormData" />
-    </md-field-item>
-  </div>
+  <validation-provider :name="definition.title" rules="required" v-slot="{ errors }">
+    <cell-item :title="definition.title" :error="errors[0]">
+      <component v-model="value" slot="right" :is="definition.type" :formId="formId" :definition="definition" :key="definition.key" @getFormData="getFormData" />
+    </cell-item>
+  </validation-provider>
+  <!-- <ValidationProvider rules="required" v-slot="{ errors }">
+    <div>
+      <input type="text" v-model="value">
+      <span>{{ errors[0] }}</span>
+    </div>
+  </ValidationProvider> -->
 </template>
 
 <script>
 import _ from 'lodash'
 import { mapGetters } from 'vuex'
 
-import { FieldItem } from 'mand-mobile'
+import CellItem from './cell-item'
 
 import vText from './basic-components/text'
 import Checkboxes from './basic-components/checkboxes'
 
-
-const DEFAULT_VALID = {
-  status: true,
-  message: ''
-}
+import { ValidationProvider } from 'vee-validate'
 
 export default {
   components: {
     'v-text': vText,
     'Checkboxes': Checkboxes,
-    [FieldItem.name]: FieldItem,
+    CellItem,
+    ValidationProvider
   },
   props: {
     formId: {
@@ -64,18 +44,11 @@ export default {
   computed: {
     ...mapGetters([
       'getMessages'
-    ]),
-    messages () {
-      this.getMessages(this.formId)
-    },
-    valid () {
-      return _.get(this.messages, this.definition.key) || DEFAULT_VALID
-    },
-    description () {
-      return this.definition.description
-    },
-    name () {
-      return this.definition.key
+    ])
+  },
+  data () {
+    return {
+      value: ''
     }
   },
   methods: {

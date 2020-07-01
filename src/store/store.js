@@ -8,9 +8,6 @@ const state = {
     formSchema: {},
     model: {},
     formDefinition: [], // 简化后的 form 结构
-    valid: true,
-    messages: {},  // 校验信息
-    ajv: null,
     validator: null,
     generator: new FormSchema()
   }

@@ -11,3 +11,20 @@
 	* mand-mobile
 		* 输入框
 		* 多选框
+
+* 需在vue.config.js中配置alias
+```js
+const path = require('path')
+
+module.exports = {
+	lintOnSave: false,
+	configureWebpack:{
+    resolve: {
+			extensions: ['.js', '.vue', '.json',".css"],
+			alias: {
+				'vue$': path.resolve(__dirname, './node_modules/vue/dist/vue.runtime.esm.js')
+			}
+    }
+	}
+}
+```

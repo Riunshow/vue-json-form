@@ -1,15 +1,5 @@
 import _ from 'lodash'
 
-const parseErrors = (errors) => {
-  const map = {}
-
-  errors.forEach(err => {
-    map[err.path] = err
-  })
-
-  return map
-}
-
 // select 下拉选项转换
 const enumToOptions = (enumArray) => {
   const options = []
@@ -25,6 +15,5 @@ const enumToOptions = (enumArray) => {
 }
 
 export {
-	parseErrors,
 	enumToOptions
 }

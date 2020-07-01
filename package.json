@@ -21,11 +21,10 @@
     "access": "public"
   },
   "dependencies": {
-    "ajv": "^6.12.2",
-    "ajv-errors": "^1.0.1",
     "extend": "^3.0.2",
     "lodash": "^4.17.15",
     "mand-mobile": "^2.5.11",
+    "vee-validate": "^3.3.6",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
