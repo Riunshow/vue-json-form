@@ -96,7 +96,7 @@ class FormSchema {
 		const model = {}
 
 		_.each(formSchema.schema, (val, key) => {
-			model[key] = formSchema.value[key] || ''
+			model[key] = formSchema.value[key] ? formSchema.value[key] : val.type === 'array' ? [] : ''
 		})
 
 		return model

@@ -33,31 +33,13 @@ export default {
     ]),
     value: {
       get () {
-        switch (this.definition.type) {
-          case 'checkboxes':
-            return _.get(this.model, this.definition.key) || []
-          default:
-            return _.get(this.model, this.definition.key)
-        }
+        this.$emit('input', _.get(this.model, this.definition.key)) 
+        return _.get(this.model, this.definition.key)
       },
       set (val) {
-        switch (this.definition.type) {
-          case 'checkboxes':
-            if (val.length === 0) {
-              this.removeValue({ formId: this.formId, key: this.definition.key })
-            } else {
-              this.setValue({ formId: this.formId, key: this.definition.key, value: val })
-            }
-            break
-          default:
-            if (val === '') {
-              this.removeValue({ formId: this.formId, key: this.definition.key })
-            } else {
-              this.setValue({ formId: this.formId, key: this.definition.key, value: val })
-            }
-            break
-        }
-        this.$emit('input', this.value)
+        this.setValue({ formId: this.formId, key: this.definition.key, value: val })
+
+        this.$emit('input', val)
         this.$emit('getFormData', this.getModel(this.formId))
       }
     },

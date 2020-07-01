@@ -1,15 +1,10 @@
 <template>
   <validation-provider :name="definition.title" rules="required" v-slot="{ errors }">
     <cell-item :title="definition.title" :error="errors[0]">
+      --{{ value }}--
       <component v-model="value" slot="right" :is="definition.type" :formId="formId" :definition="definition" :key="definition.key" @getFormData="getFormData" />
     </cell-item>
   </validation-provider>
-  <!-- <ValidationProvider rules="required" v-slot="{ errors }">
-    <div>
-      <input type="text" v-model="value">
-      <span>{{ errors[0] }}</span>
-    </div>
-  </ValidationProvider> -->
 </template>
 
 <script>
