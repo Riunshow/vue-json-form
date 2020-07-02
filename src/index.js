@@ -9,9 +9,9 @@ import 'mand-mobile/lib/mand-mobile.css'
 export const VJFStore = Store
 
 const plugin = {
-  install: function (Vue, ppsvue) {
-    if (ppsvue) {
-      ppsvue.store.registerModule('VJFStore', VJFStore)
+  install: function (Vue, extendVue) {
+    if (extendVue) {
+      extendVue.store.registerModule('VJFStore', VJFStore)
     }
     Vue.component('vue-json-form', vueJsonForm)
   }
