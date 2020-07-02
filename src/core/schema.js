@@ -25,27 +25,27 @@ class FormSchema {
 		}
 
 		_.each(formSchema.schema, (schemaItem, key) => {
-			// 是否必填
-			const required = schemaItem.required ? schemaItem.required : _.indexOf(formSchema.required, key) !== -1
+			const formItem = formSchema.form.filter(formItem => formItem.key === key)[0]
 
-			const formItem = formSchema.form.filter(formItem => formItem.key === key)
+			if (formItem.length > 1) {
+				throw new Error('表单出现重复key')
+			}
+
+			// 是否必填
+			const required = formItem.required || false
 
 			// 是否有枚举
 			if (schemaItem.enum) {
-				if (schemaItem.enum.length !== Object.keys(formItem[0].titleMap).length) {
+				if (schemaItem.enum.length !== Object.keys(formItem.titleMap).length) {
 					throw new Error('[schema中的enum]与[form中的titleMap]的length不匹配')
 				}
-
-				if (formItem.length > 1) {
-					throw new Error('表单出现重复key')
-				}
-				schemaItem.titleMap = formItem[0].titleMap
+				schemaItem.titleMap = formItem.titleMap
 			}
 
-			this._parse(schemaItem, formItem[0], definition, {
+			this._parse(schemaItem, formItem, definition, {
 				key,
 				required,
-				type: formItem[0].type
+				type: formItem.type
 			})
 		})
 
