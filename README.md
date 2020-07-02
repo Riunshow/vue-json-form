@@ -1,4 +1,6 @@
-# 动态表单
+# 基于jsonform的vue动态表单组件
+
+> https://github.com/jsonform/jsonform
 
 ### how to use
 > main.js
