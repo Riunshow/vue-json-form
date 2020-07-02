@@ -1,7 +1,6 @@
 <template>
   <validation-provider :name="definition.title" :rules="definition.required ? 'required' : ''" v-slot="{ errors }">
     <cell-item :title="definition.title" :error="errors[0]">
-      isRequired: {{ definition.required }}
       <component v-model="value" slot="right" :is="definition.type" :formId="formId" :definition="definition" :key="definition.key" @getFormData="getFormData" />
     </cell-item>
   </validation-provider>
