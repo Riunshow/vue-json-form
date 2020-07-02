@@ -1,10 +1,23 @@
 # 动态表单
 
+### how to use
+```js
+import Vue from 'vue'
+import Vuex from 'vuex'
+import VJF, { VJFStore } from 'vue-json-form-create'
+
+Vue.use(VJF)
+
+new Vue({
+  router,
+  store: new Vuex.Store(VJFStore),
+  render: h => h(App)
+}).$mount('#app')
+```
 
 ### todolist
-* 在前端工程内联调
 * ~~初始化的数据绑定到 v-model~~
-* 表单校验
+* ~~表单校验~~
 * ~~schema from  value  三者做映射关系(单选多选  enum 和 titleMap 做映射)~~
 * 代码优化
 * 组件实现
