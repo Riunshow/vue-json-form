@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import basicMixin from '../../mixin/basic'
+import basicMixin from '../../../mixin/basic'
 
 import { InputItem } from 'mand-mobile'
 

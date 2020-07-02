@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import basicMixin from '../../mixin/basic'
+import basicMixin from '../../../mixin/basic'
 
 import { CheckBox, CheckGroup } from 'mand-mobile'
 

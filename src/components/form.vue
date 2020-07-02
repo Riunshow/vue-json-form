@@ -13,13 +13,7 @@ import { mapMutations } from 'vuex'
 
 import { ValidationObserver } from 'vee-validate'
 
-import Layout from './ui/layout'
-
-// 生成 schema 相关方法
-// import GeneratorSchema from '../core/schema'
-
-// jsonform validate
-// import Ajv from '../validate'
+import Layout from './ui/mand-mobile/layout'
 
 export default {
   components: {
