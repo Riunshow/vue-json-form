@@ -6,23 +6,26 @@ import './vee-validate'
 
 import 'mand-mobile/lib/mand-mobile.css'
 
-export const store = Store
+export const VJFStore = Store
 
 const plugin = {
-	install: function (Vue) {
-		Vue.component('vue-json-form', vueJsonForm)
-	}
+  install: function (Vue, ppsvue) {
+    if (ppsvue) {
+      ppsvue.store.registerModule('VJFStore', VJFStore)
+    }
+    Vue.component('vue-json-form', vueJsonForm)
+  }
 }
 
 // auto install
 let GlobalVue = null
 if (typeof window !== 'undefined') {
-	GlobalVue = window.Vue
+  GlobalVue = window.Vue
 } else if (typeof global !== 'undefined') {
-	GlobalVue = global.Vue
+  GlobalVue = global.Vue
 }
 if (GlobalVue) {
-	GlobalVue.use(plugin)
+  GlobalVue.use(plugin)
 }
 
 export default plugin
