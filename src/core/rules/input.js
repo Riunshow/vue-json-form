@@ -1,7 +1,5 @@
 export default function (def, schema) {
-  const type = schema.type
-
-  if (type === 'string') {
+  if (def.type === 'input') {
     def.type = 'v-text'
   }
 }

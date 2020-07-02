@@ -1,9 +1,7 @@
-export default function (key, schema, options) {
+export default function (schema, options) {
 	const def = {
-		key,
 		...options,
-		title: schema.title || key || '',
-		required: options.required ? options.required : false
+		title: schema.title || key || ''
 	}
 
 	if (schema.description) {
