@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import extend from 'extend'
 
-export const init = (state, { formId, formSchema, model = {} }) => {
+export const init = (state, { formId, formSchema }) => {
   if (state[`formDefinition${formId}`]) {
     state[`formDefinition${formId}`] = {}
   }
@@ -18,14 +18,9 @@ export const init = (state, { formId, formSchema, model = {} }) => {
 
   const data = generator.getDefaultModel(formSchema)
 
-  form.model = extend(true, {}, data, model)
+  form.model = extend(true, {}, data)
 
   state[`formDefinition${formId}`] = { ...form }
-}
-
-// 校验整个表单
-export const validate = (formId, state, key) => {
-
 }
 
 export const setModel = (state, params) => {
@@ -44,8 +39,6 @@ export const setValue = (state, { formId, key, value }) => {
   _.set(model, key, value)
 
   state[`formDefinition${formId}`].model = _.cloneDeep(model)
-
-  validate(formId, state, key)
 }
 
 // 删除指定属性，表单元素值为空或数组删除时触发
@@ -56,6 +49,4 @@ export const removeValue = (state, { formId, key}) => {
   _.unset(model, key)
 
   state[`formDefinition${formId}`].model = _.cloneDeep(model)
-
-  validate(formId, state, key)
 }

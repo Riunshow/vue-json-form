@@ -1,9 +1,7 @@
 <template>
   <div class='v-json-form'>
     <validation-observer ref="form">
-      <component :is='theme' :formId="formId" @getFormData="getFormData">
-        <slot></slot>
-      </component>
+      <component :is='theme' :formId="formId" @getFormData="getFormData" />
     </validation-observer>
   </div>
 </template>
@@ -35,10 +33,6 @@ export default {
       type: Object,
       default: () => { }
     },
-    model: {
-      type: Object,
-      default: () => { }
-    },
     theme: {
       type: String,
       default: 'mand-mobile'
@@ -51,31 +45,27 @@ export default {
   watch: {
     value: {
       handler (val) {
-        const { model, formSchema, formId } = this
-        formSchema.value = { ...val }
-        this.init({ formId, formSchema, model })
+        const { formSchema, formId } = this
+        formSchema.value = _.cloneDeep(val)
+        this.init({ formId, formSchema })
       },
       deep: true
     }
   },
   created () {
-    const { model, formSchema, formId } = this
+    const { formSchema, formId } = this
 
-    this.init({ formId, formSchema, model })
+    this.init({ formId, formSchema })
   },
   methods: {
     ...mapMutations([
       'init'
     ]),
     getFormData (val) {
-      console.log('emit: ', val)
-
       this.$emit('input', val)
     },
-    validateForm () {
-      this.$refs.form.validate().then(valid => {
-        console.log('valid: ', valid)
-      })
+    async validateForm () {
+      return await this.$refs.form.validate()
     }
   }
 }
