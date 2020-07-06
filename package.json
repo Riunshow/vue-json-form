@@ -1,6 +1,6 @@
 {
   "name": "vue-json-form-create",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "基于jsonform的vue动态表单组件",
   "main": "./src/index.js",
   "scripts": {
