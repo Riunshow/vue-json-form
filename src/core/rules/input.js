@@ -1,5 +1,5 @@
-export default function (def, schema) {
+export default function (def) {
   if (def.type === 'input') {
-    def.type = 'v-text'
+    def.type = 'pps-input'
   }
 }

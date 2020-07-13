@@ -1,7 +1,7 @@
 import { enumToOptions } from '../../util'
 
-export default function (def, schema) {
+export default function (def) {
   if (def.type = 'checkboxes') {
-    def.options = enumToOptions(schema['titleMap'])
+    def.options = enumToOptions(def['titleMap'])
   }
 }

@@ -1,11 +1,12 @@
-export default function (schema, options) {
+export default function (schema, formItem, options) {
 	const def = {
-		...options,
-		title: schema.title || key || ''
+		...schema,
+		...options
 	}
 
-	if (schema.description) {
-		def.description = schema.description
+	if (formItem.items) {
+		def.items = formItem.items
 	}
+
 	return def
 }

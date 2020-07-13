@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-// select 下拉选项转换
+// select 多选 转换
 const enumToOptions = (enumArray) => {
   const options = []
 
@@ -14,6 +14,21 @@ const enumToOptions = (enumArray) => {
   return options
 }
 
+// select 转换
+const enumToSelectorOptions = (enumArray) => {
+  const options = []
+
+  _.each(enumArray, (text, value) => {
+    options.push({
+      text,
+      value
+    })
+  })
+
+  return options
+}
+
 export {
-	enumToOptions
+  enumToOptions,
+  enumToSelectorOptions
 }

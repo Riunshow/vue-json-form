@@ -38,6 +38,7 @@ export default {
       },
       set (val) {
         this.setValue({ formId: this.formId, key: this.definition.key, value: val })
+        console.log(this.getModel(this.formId));
 
         this.$emit('input', val)
         this.$emit('getFormData', this.getModel(this.formId))

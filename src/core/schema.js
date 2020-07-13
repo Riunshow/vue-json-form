@@ -3,10 +3,12 @@ import _ from 'lodash'
 import defaultRule from './rules/default'
 import inputRule from './rules/input'
 import checkboxesRule from './rules/checkboxes'
+import phoneRule from './rules/phone'
 
 const rulesMap = {
 	input: inputRule,
-	checkboxes: checkboxesRule
+	checkboxes: checkboxesRule,
+	phone: phoneRule
 }
 
 class FormSchema {
@@ -37,7 +39,7 @@ class FormSchema {
 			// 是否有枚举
 			if (schemaItem.enum) {
 				if (schemaItem.enum.length !== Object.keys(formItem.titleMap).length) {
-					throw new Error('[schema中的enum]与[form中的titleMap]的length不匹配')
+					throw new Error('[schema中的enum]与[form中的titleMap]的不匹配')
 				}
 				schemaItem.titleMap = formItem.titleMap
 			}
@@ -54,12 +56,12 @@ class FormSchema {
 
 	_parse (schemaItem, formItem, definition, options) {
 		const rules = rulesMap[formItem.type]
-		const def = defaultRule(schemaItem, options)
+		const def = defaultRule(schemaItem, formItem, options)
 
 		definition.push(def)
 
 		if (rules) {
-			rules.call(this, def, schemaItem)
+			rules.call(this, def)
 		}
 	}
 
@@ -68,7 +70,11 @@ class FormSchema {
 		const model = {}
 
 		_.each(formSchema.schema, (val, key) => {
-			model[key] = formSchema.value[key] ? formSchema.value[key] : val.type === 'array' ? [] : ''
+			if (val.type === 'object') {
+				model[key] = formSchema.value[key]
+			} else {
+				model[key] = formSchema.value[key] ? formSchema.value[key] : val.type === 'array' ? [] : ''
+			}
 		})
 
 		return model

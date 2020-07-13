@@ -12,15 +12,17 @@ import { mapGetters } from 'vuex'
 
 import CellItem from './cell-item'
 
-import vText from './basic-components/text'
+import PPSInput from './basic-components/input'
 import Checkboxes from './basic-components/checkboxes'
+import PPSPhone from './basic-components/phone'
 
 import { ValidationProvider } from 'vee-validate'
 
 export default {
   components: {
-    'v-text': vText,
+    'pps-input': PPSInput,
     'Checkboxes': Checkboxes,
+    'pps-phone': PPSPhone,
     CellItem,
     ValidationProvider
   },
