@@ -1,7 +1,7 @@
 <template>
   <div class='v-json-form'>
     <validation-observer ref="form">
-      <component :is='theme' :formId="formId" :mode="mode" :group="group" @getFormData="getFormData" />
+      <component :is='theme' :formId="formId" :mode="mode" @getFormData="getFormData" />
     </validation-observer>
   </div>
 </template>
@@ -40,10 +40,6 @@ export default {
     mode: {
       type: String,
       default: 'edit'
-    },
-    group: {
-      type: Array,
-      default: () => []
     }
   },
   data () {

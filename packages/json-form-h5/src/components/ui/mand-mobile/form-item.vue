@@ -1,60 +1,56 @@
 <template>
-  <validation-provider :name="definition.title" :rules="required ? 'required' + (componentConfig.isSelect ? ':select' : '') : ''" v-slot="{ errors }">
-    <component v-if="componentConfig.isComponent" :is="componentConfig.componentName" v-model="value" v-bind="props" mode="edit" :required="required" :error="errors[0]" />
-
-    <rainbower-cell-item v-else :title="definition.title" :required="required" :error="errors[0]" :arrow="componentConfig.isArrow" align="left" color="dark">
-      <component slot="right" :is="componentConfig.componentName" v-model="value" v-bind="props" mode="edit" />
-      <div v-if="definition.description" slot="children" v-html="definition.description"></div>
-    </rainbower-cell-item>
+  <validation-provider :name="definition.title" :rules="definition.required ? 'required' : ''" v-slot="{ errors }">
+    <cell-item :title="definition.title" :error="errors[0]">
+      <component v-model="value" slot="right" :is="definition.type" :formId="formId" :mode="mode" :definition="definition" :key="definition.key" @getFormData="getFormData" />
+    </cell-item>
   </validation-provider>
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapGetters, mapMutations } from 'vuex'
-import { ValidationProvider } from 'vee-validate'
 import CellItem from './cell-item'
-import FieldsetCheckbox from './basic-components/fieldset-checkbox'
-import Question from './basic-components/question'
 
-import config from '../../config/index'
-import basicMixin from '../../mixin/basic'
+import PPSInput from './basic-components/input'
+import Checkboxes from './basic-components/checkboxes'
+import PPSPhone from './basic-components/phone'
+import ActionSheet from './basic-components/action-sheet'
+import FieldsetCheckbox from './basic-components/fieldset-checkbox'
+
+import { ValidationProvider } from 'vee-validate'
 
 export default {
   components: {
-    ValidationProvider,
-    CellItem,
+    'input': PPSInput,
+    'Checkboxes': Checkboxes,
+    'phone': PPSPhone,
     FieldsetCheckbox,
-    Question
+    CellItem,
+    ValidationProvider,
+    ActionSheet
   },
-
-  mixins: [basicMixin],
-
-  computed: {
-    // 配置
-    componentConfig () {
-      return config[this.definition.type] || {}
+  props: {
+    formId: {
+      type: [String, Number],
+      default: 0,
+      required: true
     },
-
-    // 组件props
-    props () {
-      return {
-        formId: this.formId,
-        mode: this.mode,
-        definition: { ...this.componentConfig.getProps && this.componentConfig.getProps(this.definition) },
-        ...this.componentConfig.getProps && this.componentConfig.getProps(this.definition)
-      }
+    definition: {
+      type: Object,
+      required: true
     },
-
-    required () {
-      return this.definition.required
+    mode: {
+      type: String,
+      default: 'edit'
     }
   },
-
-  created () {
+  data () {
+    return {
+      value: ''
+    }
   },
-
   methods: {
+    getFormData (val) {
+      this.$emit('getFormData', val)
+    }
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
-  <div class="rainbower-cell-item">
-    <md-cell-item class="rainbower-cell-item-wrapper" :class="[
+  <div class="pps-cell-item">
+    <md-cell-item class="pps-cell-item-wrapper" :class="[
         error ? 'is-error' : ''
       ]" :title="title" :brief="brief" :addon="addon" :arrow="arrow" :disabled="disabled" :noBorder="noBorder" @click="onClick">
       <slot slot="default"></slot>
@@ -9,7 +9,7 @@
       <slot name="children" slot="children"></slot>
     </md-cell-item>
 
-    <p v-if="error" class="rainbower-cell-item-error">{{error}}</p>
+    <p v-if="error" class="pps-cell-item-error">{{error}}</p>
   </div>
 </template>
 
@@ -64,14 +64,14 @@ export default {
 </script>
 
 <style lang="scss">
-.rainbower-cell-item {
-  .rainbower-cell-item-wrapper.is-error {
+.pps-cell-item {
+  .pps-cell-item-wrapper.is-error {
     .md-cell-item-body:before {
       border-bottom: 2px solid red;
     }
   }
 
-  .rainbower-cell-item-error {
+  .pps-cell-item-error {
     position: relative;
     margin-top: 10px;
     font-size: 12px;

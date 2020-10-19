@@ -9,7 +9,7 @@
         <option v-for="formName in getFormNames()" :key="formName" :value="formName">{{formName}}</option>
       </select>
 
-      <vue-json-editor v-model="formSchema" :expandedOnStart="true" @json-change="create" style="height: 100%;" />
+      <vue-json-editor v-model="jsonSchema" :expandedOnStart="true" @json-change="create" style="height: 100%;" />
 
     </div>
     <div class="show">
@@ -24,9 +24,9 @@
       </select>
 
       <h5-json-form v-if="type === 'h5' && status" v-model="formdata" ref="form" :formId="1" :mode="mode"
-        :group="['en']" :formSchema="formSchema" />
+        :group="['en']" :formSchema="jsonSchema" />
       <web-json-form v-if="type === 'web' && status" v-model="formdata" ref="form" :formId="2" :mode="mode"
-        :formSchema="formSchema" />
+        :formSchema="jsonSchema" />
 
       <button type="button" class="btn btn-primary" @click="submit">提交</button>
     </div>
@@ -42,7 +42,7 @@ export default {
   data () {
     return {
       type: 'web',
-      mode: 'view',
+      mode: 'edit',
       status: true,
       schema: '',
       formdata: {},
@@ -482,9 +482,9 @@ export default {
       const validateStatus = await this.$refs['form'].validateForm()
       console.log('validateStatus', validateStatus)
 
-      if (true) {
-        console.log('formdata', this.formdata)
-      }
+      // if (true) {
+      console.log('formdata', this.formdata)
+      // }
     }
   }
 }

@@ -1,13 +1,13 @@
 <template>
-  <div class="rainbower-phone">
+  <div class="pps-phone">
     <div class="flex">
       <div class="area" @click="showSelector">
         <span>{{ selectorValue }}</span>
         <md-icon name="arrow-down" size="xs" />
       </div>
-      <md-input-item v-model="rainbowerValue.phone" @change="changeInputPhone" placeholder="请输入" clearable />
+      <md-input-item v-model="ppsValue.phone" @change="changeInputPhone" placeholder="请输入" clearable />
     </div>
-    <md-selector v-model="isSelectorShow" :default-value="rainbowerValue.area" :data="definition.properties.area.options" @choose="onSelectorChoose" />
+    <md-selector v-model="isSelectorShow" :default-value="ppsValue.area" :data="definition.properties.area.options" @choose="onSelectorChoose" />
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       isSelectorShow: false,
-      rainbowerValue: {
+      ppsValue: {
         area: '',
         phone: ''
       },
@@ -35,28 +35,28 @@ export default {
   },
   watch: {
     value (val) {
-      this.rainbowerValue = { ...val }
+      this.ppsValue = { ...val }
       const area = this.definition.items.filter(item => item.key === 'area')
-      this.selectorValue = area[0].titleMap[this.rainbowerValue.area]
+      this.selectorValue = area[0].titleMap[this.ppsValue.area]
     }
   },
   methods: {
     changeInputPhone () {
-      this.value = { ...this.rainbowerValue }
+      this.value = { ...this.ppsValue }
     },
     showSelector () {
       this.isSelectorShow = true
     },
     onSelectorChoose ({ value, text }) {
       this.selectorValue = text
-      this.rainbowerValue.area = value
-      this.value = { ...this.rainbowerValue }
+      this.ppsValue.area = value
+      this.value = { ...this.ppsValue }
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-.rainbower-phone {
+.pps-phone {
   display: flex;
 
   .flex {

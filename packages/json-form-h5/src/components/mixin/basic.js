@@ -42,7 +42,8 @@ export default {
       },
       set (val) {
         this.setValue({ formId: this.formId, key: this.definition.key, value: val })
-        this.model = this.getModel(this.formId)
+        console.log(this.getModel(this.formId))
+
         this.$emit('input', val)
         this.$emit('getFormData', this.getModel(this.formId))
       }
@@ -59,9 +60,6 @@ export default {
   },
   created () {
     this.model = this.getModel(this.formId)
-
-    this.$emit('input', _.get(this.model, this.definition.key))
-    this.$emit('getFormData', this.getModel(this.formId))
   },
   methods: {
     ...mapMutations('H5JsonFormStore', [
