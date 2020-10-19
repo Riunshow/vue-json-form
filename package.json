@@ -1,0 +1,38 @@
+{
+  "name": "vue-json-form-create",
+  "version": "0.0.5",
+  "description": "基于jsonform的vue动态表单组件",
+  "main": "./src/index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --config webpack.dev.config.js",
+    "build": "webpack --progress --hide-modules"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Riunshow/vue-form-create.git"
+  },
+  "author": "Rainbower",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Riunshow/vue-form-create/issues"
+  },
+  "homepage": "https://github.com/Riunshow/vue-form-create#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "extend": "^3.0.2",
+    "lodash": "^4.17.15",
+    "mand-mobile": "^2.5.11",
+    "vee-validate": "^3.3.6",
+    "vuex": "^3.4.0"
+  },
+  "devDependencies": {
+    "postcss-pxtorem": "^5.1.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
