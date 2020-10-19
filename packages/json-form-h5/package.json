@@ -1,0 +1,47 @@
+{
+  "name": "@rainbower/json-form-h5",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "deploy": "npm publish"
+  },
+  "author": "rainbower",
+  "license": "MIT",
+  "dependencies": {
+    "@rainbower/json-form-core": "^0.0.1",
+    "mand-mobile": "^2.5.11",
+    "vee-validate": "^3.3.6",
+    "vuex": "^3.4.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "postcss-pxtorem": "^5.1.1",
+    "vue": "^2.6.11",
+    "vue-loader": "^15.9.3",
+    "vue-template-compiler": "^2.6.11",
+    "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-plugin-eslint": "^4.0.0",
+    "@vue/cli-plugin-router": "^4.0.0",
+    "@vue/cli-plugin-vuex": "^4.0.0",
+    "@vue/cli-service": "^4.0.0",
+    "@vue/eslint-config-standard": "^4.0.0",
+    "autoprefixer": "^9.7.3",
+    "babel-plugin-import": "^1.8.0",
+    "babel-runtime": "^6.26.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.2.3",
+    "nib": "^1.1.2",
+    "postcss-px2rem": "^0.3.0",
+    "poststylus": "^1.0.0",
+    "sass": "^1.19.0",
+    "sass-loader": "^8.0.0",
+    "stylus-loader": "^3.0.2",
+    "vue-cli-plugin-mand": "^0.4.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}

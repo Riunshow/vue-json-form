@@ -1,0 +1,23 @@
+{
+  "name": "@rainbower/json-form-core",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./src/index.js",
+  "scripts": {
+    "deploy": "npm publish"
+  },
+  "author": "rainbower",
+  "license": "MIT",
+  "dependencies": {
+    "extend": "^3.0.2",
+    "lodash": "^4.17.15"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "babel-eslint": "^10.1.0"
+  }
+}
